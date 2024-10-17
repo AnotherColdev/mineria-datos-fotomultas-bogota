@@ -1,26 +1,5 @@
----
-title: "Proyecto"
-author: {"CarlosGutierrez", "Santiago Calderón", "Juan Fajardo"}
-date: "`r Sys.Date()`"
-output: html_document
----
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-```{r setup, include=FALSE}
+{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-# Establecer el mirror de CRAN
-options(repos = c(CRAN = "https://cran.rstudio.com/"))
-
 # Instalar las librerías necesarias
 install.packages("readr")
 install.packages("dplyr")
@@ -38,17 +17,17 @@ library(VIM)
 library(scales)
 library(lubridate)
 library(caret)
-```
+
 
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 When you click the *Knit* button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
+  
+  {r cars}
 # Cargar el dataset
-estudio <- read_csv("./src/Comparendos_2021_Bogota_D_C.csv")
+estudio <- read_csv("/Users/juanfajardogarzon/Downloads/Comparendos_2021_Bogota_D_C.csv")
 
 # Visualización inicial del dataset
 View(estudio)       # Abre el dataset en una ventana de vista
@@ -122,4 +101,4 @@ if (!is.null(estudio_imputado_knn)) {
 } else {
   print("La imputación KNN no fue exitosa.")
 }
-```
+
