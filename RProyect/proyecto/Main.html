@@ -358,8 +358,8 @@ Gutierrez</h4>
 </div>
 
 
-<div id="introducción" class="section level1">
-<h1>1. Introducción</h1>
+<div id="introducción" class="section level2">
+<h2>1. Introducción</h2>
 <p>El proceso KDD permite transformar grandes volúmenes de información
 en conocimiento útil. En este proyecto aplicamos el enfoque KDD
 utilizando técnicas de clustering para analizar los comparendos
@@ -369,8 +369,8 @@ características de las infracciones de tránsito y cómo estas varían
 según factores como la ubicación, el tipo de infracción, fecha, entre
 otros.</p>
 </div>
-<div id="justificación" class="section level1">
-<h1>2. Justificación</h1>
+<div id="justificación" class="section level2">
+<h2>2. Justificación</h2>
 <p>El análisis de los comparendos de tránsito es crucial para mejorar la
 gestión y las políticas públicas relacionadas con la movilidad y la
 seguridad vial. Los datos de comparendos registrados en Bogotá, Colombia
@@ -380,10 +380,10 @@ clustering nos ayudará a segmentar los datos, facilitando la creación de
 perfiles de infractores o zonas críticas, lo que puede ser utilizado por
 autoridades de tránsito para tomar decisiones más informadas.</p>
 </div>
-<div id="objetivos" class="section level1">
-<h1>3. Objetivos</h1>
-<div id="objetivo-general" class="section level2">
-<h2>3.1. Objetivo General</h2>
+<div id="objetivos" class="section level2">
+<h2>3. Objetivos</h2>
+<div id="objetivo-general" class="section level3">
+<h3>3.1. Objetivo General</h3>
 <p>Identificar patrones y agrupaciones en los comparendos registrados en
 Bogotá Colombia en 2021 registrados según su zona, tipo de vehículo y
 fecha y hora mediante técnicas de clustering, para mejorar el
@@ -391,8 +391,8 @@ entendimiento de las infracciones de tránsito y su distribución
 geográfica y temporal, permitiendo plantear estrategias que permitan
 reducir la incurrencia en este tipo de infracciones</p>
 </div>
-<div id="objetivos-especificos" class="section level2">
-<h2>3.2. Objetivos Especificos</h2>
+<div id="objetivos-especificos" class="section level3">
+<h3>3.2. Objetivos Especificos</h3>
 <p>• Seleccionar y preprocesar los datos de comparendos de manera
 adecuada para su análisis.</p>
 <p>• Aplicar técnicas de clustering para segmentar los comparendos</p>
@@ -406,10 +406,10 @@ infracciones.</p>
 (vehículos, hora, dirección).</p>
 </div>
 </div>
-<div id="fases-del-proceso-kdd" class="section level1">
-<h1>4. Fases del proceso KDD</h1>
-<div id="dominio-del-problema" class="section level2">
-<h2>4.1. Dominio del problema</h2>
+<div id="fases-del-proceso-kdd" class="section level2">
+<h2>4. Fases del proceso KDD</h2>
+<div id="dominio-del-problema" class="section level3">
+<h3>4.1. Dominio del problema</h3>
 <p>Los comparendos de tránsito son sanciones impuestas a los conductores
 por infringir las normas de tránsito. En Colombia, estas infracciones
 incluyen desde el mal estacionamiento hasta conducir bajo la influencia
@@ -418,18 +418,18 @@ recurrentes y áreas críticas de infracciones. Las variables principales
 consideradas incluyen la fecha de la infracción, la ubicación
 geográfica, y el tipo de infracción.</p>
 <p>El problema consiste en analizar grandes volúmenes de datos sobre
-infracciones de tránsito ocurridas en Colombia en 2021, con el objetivo
-de agrupar estas infracciones en clústeres que compartan características
+infracciones de tránsito ocurridas en Bogotá en 2021, con el objetivo de
+agrupar estas infracciones en clústeres que compartan características
 comunes. Esto permitiría identificar patrones geográficos o temporales
 relacionados con el tipo de infracción para generar insights valiosos,
 como áreas con mayor incidencia u horarios críticos en los que ocurren
 las infracciones.</p>
 </div>
-<div id="selección-de-los-datos" class="section level2">
-<h2>4.2. Selección de los datos</h2>
-<p>Actualmente el dataset cuenta con mas de 480000 filas y 16 columnas.
-Al revisar el contenido se procede a escoger las columnas que seran
-utilizadas para este proyecto, pasando a 11 columnas, a continuación se
+<div id="selección-de-los-datos" class="section level3">
+<h3>4.2. Selección de los datos</h3>
+<p>Actualmente el dataset cuenta con 482498 filas y 16 columnas. Al
+revisar el contenido se procede a escoger las columnas que serán
+utilizadas para este proyecto, pasando a 10 columnas, a continuación, se
 detallan:</p>
 <p>• NUM_COMPAR: Numero de comparendo en el que es cargado la
 información del comparendo</p>
@@ -483,8 +483,12 @@ nombres_columnas &lt;- colnames(estudio)
 # Crear una tabla con los nombres de las columnas en forma de lista
 kable(as.data.frame(nombres_columnas), col.names = NULL, &quot;latex&quot;, booktabs = TRUE)</code></pre>
 </div>
-<div id="limpieza-de-los-datos" class="section level2">
-<h2>4.3. Limpieza de los datos</h2>
+<div id="limpieza-de-los-datos" class="section level3">
+<h3>4.3. Limpieza de los datos</h3>
+<p>Dentro de las fases del proceso KDD está la limpieza de los datos. Se
+eliminaran aquellas filas y columnas que no tiene ninguna información,
+se revisaran que no hayan filas duplicadas y se eliminarán si
+aparecen.</p>
 <pre class="r"><code># 1. Eliminar filas que no contienen ningún valor (filas completamente vacías)
 estudio &lt;- estudio %&gt;% filter(!if_all(everything(), is.na))
 
@@ -497,8 +501,15 @@ print(paste(&quot;Número de filas duplicadas:&quot;, sum(duplicated_rows)))</co
 <pre><code>## [1] &quot;Número de filas duplicadas: 387&quot;</code></pre>
 <pre class="r"><code>estudio &lt;- estudio %&gt;% distinct()  # Eliminar filas duplicadas, si existen</code></pre>
 </div>
-<div id="transformación-de-datos" class="section level2">
-<h2>4.4. Transformación de datos</h2>
+<div id="transformación-de-datos" class="section level3">
+<h3>4.4. Transformación de datos</h3>
+<p>Con los datos limpios se procede a transformar los datos que
+aparecen. Revisando se encuentra que la columna de FECHA_HORA posee
+tanto la información de la fecha y la hora se procede a separar dicha
+información en columnas diferentes. Así mismo se evidencia que en las
+columnas de CLASE_VEHI y TIPO_SERVI hay valores del tipo “-“, las cuales
+están asociadas a infracciones relacionadas a los peatones, se procede a
+cambiar dichos valores a “Peatones”</p>
 <pre class="r"><code># 5. Reemplazar &quot;-&quot; en las columnas CLASE_VEHI y TIPO_SERVI por &quot;Peatón&quot;
 estudio &lt;- estudio %&gt;% 
   mutate(CLASE_VEHI = ifelse(CLASE_VEHI == &quot;-&quot; | is.na(CLASE_VEHI), &quot;Peatón&quot;, CLASE_VEHI),
@@ -589,6 +600,13 @@ if (!is.null(estudio_imputado_knn)) {
 ##          0          0          0          0          0          0          0 
 ## DES_INFRAC  LOCALIDAD  DIRECCION 
 ##          0          0          0</code></pre>
+</div>
+<div id="bibliografía" class="section level3">
+<h3>Bibliografía</h3>
+<ul>
+<li>“CS 583 Fall 2023”. Computer Science | University of Illinois
+Chicago. Accedido el 17 de octubre de 2024. [En línea]. Disponible: <a href="https://www.cs.uic.edu/~liub/teach/cs583-fall-23/cs583.html" class="uri">https://www.cs.uic.edu/~liub/teach/cs583-fall-23/cs583.html</a></li>
+</ul>
 </div>
 </div>
 
